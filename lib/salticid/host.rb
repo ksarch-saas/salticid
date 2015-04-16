@@ -485,10 +485,11 @@ class Salticid::Host
         return @ssh
       end
 
+      opts = {:password => @login_password} unless @login_password.nil?
       if tunnel
-        @ssh = tunnel.ssh(name, user)
+        @ssh = tunnel.ssh(name, user, opts||{})
       else
-        @ssh = Net::SSH.start(name, user)
+        @ssh = Net::SSH.start(name, user, opts||{})
       end
     end
   end
